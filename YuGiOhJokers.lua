@@ -75,7 +75,7 @@ SMODS.Joker {
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.mult}}
   end,
-  rarity = 2,
+  rarity = 1,
   atlas = 'YGOJokers',
   pos = {x=3, y=0},
   cost = 4,
@@ -101,7 +101,7 @@ SMODS.Joker {
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.mult}}
   end,
-  rarity = 2,
+  rarity = 1,
   atlas = 'YGOJokers',
   pos = {x=2, y=0},
   cost = 4,
@@ -127,7 +127,7 @@ SMODS.Joker {
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.mult}}
   end,
-  rarity = 2,
+  rarity = 1,
   atlas = 'YGOJokers',
   pos = {x=1, y=0},
   cost = 4,
@@ -153,7 +153,7 @@ SMODS.Joker {
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.mult}}
   end,
-  rarity = 2,
+  rarity = 1,
   atlas = 'YGOJokers',
   pos = {x=4, y=0},
   cost = 4,
@@ -167,42 +167,41 @@ SMODS.Joker {
   end
 }
 
--- SMODS.Joker {
---   key = 'time_wizard',
---   loc_txt = {
---     name = 'Time Wizard',
---     text = {
---       "#3# in #4# chance to",
---       "give {X:mult,C:white}X#1#{} chips and mult",
---       "or destroy a random joker",
---       "and give {X:mult,C:white}X#2#{} chips and mult"
---     }
---   },
---   config = {extra = {success = 6, fail = 0, odds_num = 1, odds_den = 2}},
---   loc_vars = function(self, info_queue, card)
---     return {vars = {card.ability.extra.success, card.ability.extra.fail, G.GAME.probabilities.normal * card.ability.extra.odds_num, card.ability.extra.odds_den}}
---   end,
---   rarity = 1,
---   atlas = 'YGOJokers',
---   pos = {x=0, y=1},
---   cost = 4,
---   calculate = function(self, card, context)
---     if context.joker_main then
---       if pseudorandom('time_wizard') < G.GAME.probabilities.normal * card.ability.extra.odds_num / card.ability.extra.odds_den then
---         return {
---           Xmult_mod = card.ability.extra.success,
---           message = localize { type = 'variable', key = 'a_Xmult', vars = { card.ability.extra.success } }
---         }
---       else
---         joker_to_destroy = pseudorandom('time_wizard') * tablelength(G.jokers.cards),
---         print(tostring(joker_to_destroy)),
---         G.jokers.cards[joker_to_destroy]:remove(),
---         G.jokers.remove_card(G.jokers.cards[joker_to_destroy])
---         return {
---           Xmult_mod = card.ability.extra.fail,
---           message = localize { type = 'variable', key = 'a_Xmult', vars = { card.ability.extra.fail } }
---         }
---       end
---     end
---   end
--- }
+SMODS.Joker {
+  key = 'time_wizard',
+  loc_txt = {
+    name = 'Time Wizard',
+    text = {
+      "50/50 chance to",
+      "give {X:mult,C:white}X#1#{} Mult or",
+      "destroy a random joker",
+      "and give {X:mult,C:white}X#2#{} Mult"
+    }
+  },
+  config = {extra = {success = 10, fail = 0}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.success, card.ability.extra.fail}}
+  end,
+  rarity = 3,
+  atlas = 'YGOJokers',
+  pos = {x=0, y=1},
+  cost = 4,
+  calculate = function(self, card, context)
+    if context.joker_main then
+      if pseudorandom('time_wizard') < 1.0 / 2.0 then
+        return {
+          Xmult_mod = card.ability.extra.success,
+          message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.success } }
+        }
+      else
+        joker_to_destroy = math.floor(pseudorandom('time_wizard') * tablelength(G.jokers.cards) + 1)
+        G.jokers.cards[joker_to_destroy]:remove()
+        G.jokers.remove_card(G.jokers.cards[joker_to_destroy])
+        return {
+          Xmult_mod = card.ability.extra.fail,
+          message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.fail } }
+        }
+      end
+    end
+  end
+}
