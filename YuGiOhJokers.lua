@@ -48,7 +48,7 @@ SMODS.Joker {
   rarity = 3,
   atlas = 'YGOJokers',
   pos = {x=0, y=0},
-  cost = 6,
+  cost = 7,
   calculate = function(self, card, context)
     if context.joker_main then
       if jokers_contains("j_ygo_exodia_left_arm") and jokers_contains("j_ygo_exodia_right_arm") and jokers_contains("j_ygo_exodia_left_leg") and jokers_contains("j_ygo_exodia_right_leg") then
@@ -185,7 +185,7 @@ SMODS.Joker {
   rarity = 3,
   atlas = 'YGOJokers',
   pos = {x=0, y=1},
-  cost = 4,
+  cost = 7,
   calculate = function(self, card, context)
     if context.joker_main then
       if pseudorandom('time_wizard') < 1.0 / 2.0 then
