@@ -8,7 +8,7 @@
 ### Exodia head
 **Rare**
 
-Does nothing unless you have all pieces, then X1^99 mult.
+Does nothing unless you have all pieces, then X10^99 mult.
 
 ### Time wizard
 **Rare**
