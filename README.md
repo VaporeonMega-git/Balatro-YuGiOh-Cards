@@ -29,3 +29,13 @@ Each scoring Heart gives +50 chips
 **Legendary**
 
 +500 chips
+
+### Graceful Charity
+**Consumable**
+
+Grants a free shop reroll
+
+### Pot of Greed
+**Consumable**
+
+Draw 2 cards
