@@ -1,10 +1,31 @@
-# Adds exodia and time wizard.
+# Adds Yu-Gi-Oh cards as jokers and consumables
 
 ### Exodia arms and legs
+**Common**
+
 +1 mult each
 
 ### Exodia head
+**Rare**
+
 Does nothing unless you have all pieces, then X1^99 mult.
 
 ### Time wizard
-50/50 chance to give X10 mult or X0 mult and destroy a random jokers.
+**Rare**
+
+50/50 chance to give X10 mult or destroy a random joker.
+
+### Dark Magician
+**Uncommon**
+
+Each scoring Spade has a 1 in 2 chance to give X1.5 mult
+
+### Dark Magician Girl
+**Uncommon**
+
+Each scoring Heart gives +50 chips
+
+### Blue-Eyes White Dragon
+**Legendary**
+
++500 chips
