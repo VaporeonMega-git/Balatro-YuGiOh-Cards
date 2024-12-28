@@ -1,20 +1,3 @@
---- STEAMODDED HEADER
---- MOD_NAME: Yu-Gi-Oh Jokers
---- MOD_ID: YuGiOh
---- MOD_AUTHOR: [VaporeonMega]
---- MOD_DESCRIPTION: Adds the five exodia cards as jokers.
---- DEPENDENCIES: [Steamodded>=1.0.0~ALPHA-0812d]
---- BADGE_COLOR: c7638f
---- PREFIX: ygo
-
-SMODS.Atlas {
-  key = "YGOJokers",
-  path = "YGOJokers.png",
-  px = 71,
-  py = 95
-}
-
-
 local function jokers_contains(val)
   for index, value in ipairs(G.jokers.cards) do
     if value:save().label == val then
@@ -24,13 +7,11 @@ local function jokers_contains(val)
   return false
 end
 
-
 local function tablelength(T)
   local count = 0
   for _ in pairs(T) do count = count + 1 end
   return count
 end
-
 
 SMODS.Joker {
   key = 'exodia_forbidden_one',
@@ -174,11 +155,10 @@ SMODS.Joker {
     text = {
       "50/50 chance to",
       "give {X:mult,C:white}X#1#{} Mult or",
-      "destroy a random joker",
-      "and give {X:mult,C:white}X#2#{} Mult"
+      "destroy a random joker"
     }
   },
-  config = {extra = {success = 10, fail = 0}},
+  config = {extra = {success = 10, fail = 1}},
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.success, card.ability.extra.fail}}
   end,
@@ -202,6 +182,93 @@ SMODS.Joker {
           message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.fail } }
         }
       end
+    end
+  end
+}
+
+SMODS.Joker {
+    key = 'dark_magician',
+    loc_txt = {
+      name = 'Dark Magician',
+      text = {
+        "#1# in #2# chance for",
+        "played cards with",
+        "{C:spades}Spade{} suit to give",
+        "{X:mult,C:white}X#3#{} Mult when scored"
+      }
+    },
+    config = {extra = {odds_num = 1, odds_den = 2, Xmult = 1.5}},
+    loc_vars = function(self, info_queue, card)
+      return {vars = {card.ability.extra.odds_num, card.ability.extra.odds_den, card.ability.extra.Xmult}}
+    end,
+    rarity = 2,
+    atlas = 'YGOJokers',
+    pos = {x=1, y=1},
+    cost = 7,
+    calculate = function(self, card, context)
+      if context.individual and context.cardarea == G.play then
+        if context.other_card:is_suit("Spades") and pseudorandom('bloodstone') < G.GAME.probabilities.normal*card.ability.extra.odds_num/card.ability.extra.odds_den then
+          return {
+            x_mult = card.ability.extra.Xmult,
+            card = card
+          }
+        end
+      end
+    end
+  }
+
+SMODS.Joker {
+  key = 'dark_magician_girl',
+  loc_txt = {
+    name = 'Dark Magician Girl',
+    text = {
+      "Played cards with",
+      "{C:hearts}Heart{} suit to give",
+      "{C:chips}+#1#{} Chips when scored"
+    }
+  },
+  config = {extra = {chips = 50}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.chips}}
+  end,
+  rarity = 2,
+  atlas = 'YGOJokers',
+  pos = {x=2, y=1},
+  cost = 7,
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.play then
+      if context.other_card:is_suit("Hearts") then
+        return {
+          chips = card.ability.extra.chips,
+          card = card
+        }
+      end
+    end
+  end
+}
+
+SMODS.Joker {
+  key = 'blue_eyes_white_dragon',
+  loc_txt = {
+    name = 'Blue-Eyes White Dragon',
+    text = {
+      "{C:chips}+#1#{} Chips"
+    }
+  },
+  config = {extra = {chips = 500}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.chips}}
+  end,
+  rarity = 4,
+  atlas = 'YGOJokers',
+  pos = {x=3, y=1},
+  cost = 20,
+  calculate = function(self, card, context)
+    if context.joker_main then
+      return {
+        chip_mod = card.ability.extra.chips,
+        message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } }
+      }
     end
   end
 }
