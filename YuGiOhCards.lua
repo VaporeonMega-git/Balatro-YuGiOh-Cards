@@ -6,6 +6,7 @@
 --- DEPENDENCIES: [Steamodded>=1.0.0~ALPHA-0812d]
 --- BADGE_COLOR: c7638f
 --- PREFIX: ygo
+--- VERSION: 0.2.0
 
 local atlas, error_loading = SMODS.load_file("Atlas.lua")
 if error_loading then
