@@ -272,3 +272,100 @@ SMODS.Joker {
     end
   end
 }
+
+SMODS.Joker {
+  key = 'slifer_the_executive_producer',
+  loc_txt = {
+    name = 'Slifer the Sky Dragon',
+    text = {
+      "{C:mult}+#1#{} Mult for each",
+      "card in hand"
+    }
+  },
+  config = {extra = {mult = 100}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.mult}}
+  end,
+  rarity = 4,
+  atlas = 'YGOJokers',
+  pos = {x=4, y=1},
+  cost = 20,
+  calculate = function(self, card, context)
+    if context.joker_main then
+      local total_mult = card.ability.extra.mult * tablelength(G.hand.cards)
+      return {
+        mult_mod = total_mult,
+        message = localize { type = 'variable', key = 'a_mult', vars = { total_mult } }
+      }
+    end
+  end
+}
+
+SMODS.Joker {
+  key = 'obelisk_the_tormentor',
+  loc_txt = {
+    name = 'Obelisk the Tormentor',
+    text = {
+      "{C:chips}+#1#{} Chips",
+      "{C:mult}+#2#{} Mult"
+    }
+  },
+  config = {extra = {chips = 200, mult = 200}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.chips, card.ability.extra.mult}}
+  end,
+  rarity = 4,
+  atlas = 'YGOJokers',
+  pos = {x=0, y=2},
+  cost = 20,
+  calculate = function(self, card, context)
+    if context.joker_main then
+      return {
+        chip_mod = card.ability.extra.chips,
+        mult_mod = card.ability.extra.mult,
+        message = '+' .. card.ability.extra.chips .. ' Chips, ' ..
+                  localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } }
+      }
+    end
+  end
+}
+
+SMODS.Joker {
+  key = 'the_winged_dragon_of_ra',
+  loc_txt = {
+    name = 'The Winged Dragon of Ra',
+    text = {
+      "{X:mult,C:white}X#2#{} Mult",
+      "When a card is destroyed,",
+      "gain the card's rank value",
+      "times {C:mult}#1#{} as Xmult"
+    }
+  },
+  config = {extra = {Xmult_mod = 0.05, Xmult = 1}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.Xmult_mod, card.ability.extra.Xmult}}
+  end,
+  rarity = 4,
+  atlas = 'YGOJokers',
+  pos = {x=1, y=2},
+  cost = 20,
+  calculate = function(self, card, context)
+    if context.remove_playing_cards then
+      local amnt = 0
+      for k, val in ipairs(context.removed) do
+          amnt = amnt + (val:get_id() * card.ability.extra.Xmult_mod)
+      end
+      if amnt > 0 then
+        card.ability.extra.Xmult = card.ability.extra.Xmult + amnt
+        G.E_MANAGER:add_event(Event({
+          func = function() card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}}}); return true
+        end}))
+      end
+    elseif context.joker_main then
+      return {
+        Xmult_mod = card.ability.extra.Xmult,
+        message = localize { type = 'variable', key = 'a_Xmult', vars = { card.ability.extra.Xmult } }
+      }
+    end
+  end
+}
