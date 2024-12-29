@@ -30,6 +30,23 @@ Each scoring Heart gives +50 chips
 
 +500 chips
 
+### Slifer the Sky Dragon
+**Legendary**
+
++100 mult for each card held in hand
+
+### Obelisk the Tormentor
+**Legendary**
+
++200 chips
+
++200 mult
+
+### The Winged Dragon of Ra
+**Legendary**
+
+X1 mult. When destroying a playing card, gain 1/20 of its rank as xmult.
+
 ### Graceful Charity
 **Consumable**
 
