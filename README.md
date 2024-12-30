@@ -32,12 +32,12 @@ Each scoring Heart gives +50 chips
 ### Blue-Eyes White Dragon
 **Legendary**
 
-+3000 chips if you have at least 8 cards in hand
++300 chips
 
 ### Red-Eyes Black Dragon
 **Legendary**
 
-+2700 mult if you have at least 8 cards in hand
++270 mult
 
 ### Slifer the Sky Dragon
 **Legendary**

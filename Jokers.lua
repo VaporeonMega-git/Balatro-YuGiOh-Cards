@@ -252,13 +252,12 @@ SMODS.Joker {
   loc_txt = {
     name = 'Blue-Eyes White Dragon',
     text = {
-      "{C:chips}+#1#{} Chips if at least",
-      "#2# cards held in hand"
+      "{C:chips}+#1#{} Chips"
     }
   },
-  config = {extra = {chips = 3000, min_cards = 8}},
+  config = {extra = {chips = 300}},
   loc_vars = function(self, info_queue, card)
-    return {vars = {card.ability.extra.chips, card.ability.extra.min_cards}}
+    return {vars = {card.ability.extra.chips}}
   end,
   rarity = 4,
   atlas = 'YGOJokers',
@@ -266,12 +265,10 @@ SMODS.Joker {
   cost = 20,
   calculate = function(self, card, context)
     if context.joker_main then
-      if #G.hand.cards >= card.ability.extra.min_cards then
-        return {
-          chip_mod = card.ability.extra.chips,
-          message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } }
-        }
-      end
+      return {
+        chip_mod = card.ability.extra.chips,
+        message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } }
+      }
     end
   end
 }
@@ -281,13 +278,12 @@ SMODS.Joker {
   loc_txt = {
     name = 'Red-Eyes Black Dragon',
     text = {
-      "{C:mult}+#1#{} Mult if at least",
-      "#2# cards held in hand"
+      "{C:mult}+#1#{} Mult"
     }
   },
-  config = {extra = {mult = 2700, min_cards = 8}},
+  config = {extra = {mult = 270}},
   loc_vars = function(self, info_queue, card)
-    return {vars = {card.ability.extra.mult, card.ability.extra.min_cards}}
+    return {vars = {card.ability.extra.mult}}
   end,
   rarity = 4,
   atlas = 'YGOJokers',
@@ -295,12 +291,10 @@ SMODS.Joker {
   cost = 20,
   calculate = function(self, card, context)
     if context.joker_main then
-      if #G.hand.cards >= card.ability.extra.min_cards then
-        return {
-          mult_mod = card.ability.extra.mult,
-          message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } }
-        }
-      end
+      return {
+        mult_mod = card.ability.extra.mult,
+        message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } }
+      }
     end
   end
 }
