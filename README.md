@@ -23,7 +23,7 @@ Each scoring Spade has a 1 in 2 chance to give X1.5 mult
 ### Dark Magician Girl
 **Uncommon**
 
-Retriever all played spades for each "Dark Magician" joker
+Retrigger all played spades for each "Dark Magician" joker
 
 ### Luster Dragon
 **Uncommon**
