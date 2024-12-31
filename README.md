@@ -51,7 +51,7 @@ Each scoring Heart gives +50 chips
 
 +100 mult
 
-Every 2 cards sold spawns a "Hanged Man" tarot card
+Every 2 cards sold spawns a "Mystical Space Typhoon" spell card
 
 ### The Winged Dragon of Ra
 **Legendary**
@@ -73,3 +73,8 @@ Draw 2 cards
 **Consumable**
 
 Remove eternal, perishable, and rental from 1 selected joker.
+
+### Mystical Space Typhoon
+**Consumable**
+
+Destroy 1 selected playing card.
