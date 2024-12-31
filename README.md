@@ -1,50 +1,50 @@
 # Adds Yu-Gi-Oh cards as jokers and consumables
 
-### Exodia arms and legs
+## Exodia arms and legs
 **Uncommon**
 
 +1 mult each
 
-### Exodia head
+## Exodia head
 **Rare**
 
 Does nothing unless you have all pieces, then X10^99 mult
 
-### Time wizard
+## Time wizard
 **Rare**
 
 50/50 chance to give X10 mult or destroy a random joker
 
-### Dark Magician
+## Dark Magician
 **Uncommon**
 
 Each scoring Spade has a 1 in 2 chance to give X1.5 mult
 
-### Dark Magician Girl
+## Dark Magician Girl
 **Uncommon**
 
 Retrigger all played spades for each "Dark Magician" joker
 
-### Luster Dragon
+## Luster Dragon
 **Uncommon**
 Each scoring Heart gives +50 chips
 
-### Blue-Eyes White Dragon
+## Blue-Eyes White Dragon
 **Legendary**
 
 +300 chips
 
-### Red-Eyes Black Dragon
+## Red-Eyes Black Dragon
 **Legendary**
 
 +270 mult
 
-### Slifer the Sky Dragon
+## Slifer the Sky Dragon
 **Legendary**
 
 +50 mult for each card held in hand
 
-### Obelisk the Tormentor
+## Obelisk the Tormentor
 **Legendary**
 
 +100 chips
@@ -53,23 +53,23 @@ Each scoring Heart gives +50 chips
 
 Every 2 cards sold spawns a "Mystical Space Typhoon" spell card
 
-### The Winged Dragon of Ra
+## The Winged Dragon of Ra
 **Legendary**
 
 Play only 1 hand
 X1 mult, +X2 for each hand lost due to Ra's effect
 
-### Graceful Charity
+## Graceful Charity
 **Consumable**
 
 Discard 2 selected cards, draw 3
 
-### Pot of Greed
+## Pot of Greed
 **Consumable**
 
 Draw 2 cards
 
-### Enemy Controller
+## Enemy Controller
 **Consumable**
 
 Remove eternal, perishable, and rental from 1 selected joker.
