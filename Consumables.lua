@@ -109,3 +109,44 @@ SMODS.Consumable {
     G.jokers.highlighted[1]:set_rental(false)
   end
 }
+
+SMODS.Consumable {
+  key = "mystical_space_typhoon",
+  set = "spell",
+  loc_txt = {
+    name = 'Mystical Space Typhoon',
+    text = {
+      "Destroy #1# playing card"
+    }
+  },
+  loc_vars = function(self, info_queue, center)
+    return {vars = {1}}
+  end,
+  atlas = 'YGOSpells',
+  pos = {x = 3, y = 0},
+  cost = 2,
+  can_use = function(self, card)
+    if #G.hand.highlighted == 1 then
+      return true
+    else
+      return false
+    end
+  end,
+  use = function(self, card, area, copier)
+    local destroyed_cards = {G.hand.highlighted[1]}
+    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+      play_sound('tarot1')
+      card:juice_up(0.3, 0.5)
+      return true end }))
+    G.E_MANAGER:add_event(Event({
+      trigger = 'after',
+      delay = 0.2,
+      func = function() 
+        G.hand.highlighted[1]:start_dissolve(nil, i == #G.hand.highlighted)
+        return true end }))
+    delay(0.3)
+    for i = 1, #G.jokers.cards do
+        G.jokers.cards[i]:calculate_joker({remove_playing_cards = true, removed = destroyed_cards})
+    end
+  end
+}

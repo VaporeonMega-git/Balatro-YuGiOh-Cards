@@ -372,8 +372,8 @@ SMODS.Joker {
     text = {
       "{C:chips}+#1#{} Chips",
       "{C:mult}+#2#{} Mult",
-      "After selling #3# cards,",
-      "create a {C:tarot}Hanged Man{} card"
+      "After selling #3# cards, create",
+      "a {C:planet}Mystical Space Typhoon{} card"
     }
   },
   config = {extra = {chips = 100, mult = 100, left_to_sell = 2, need_to_sell = 2}},
@@ -395,7 +395,7 @@ SMODS.Joker {
     elseif context.selling_card then
       card.ability.extra.left_to_sell = card.ability.extra.left_to_sell - 1
       if card.ability.extra.left_to_sell <= 0 then
-        local tarot = create_card(nil, G.consumeables, nil, nil, nil, nil, 'c_hanged_man', nil)
+        local tarot = create_card(nil, G.consumeables, nil, nil, nil, nil, 'c_ygo_mystical_space_typhoon', nil)
         card:add_to_deck()
         G.consumeables:emplace(tarot)
         card.ability.extra.left_to_sell = card.ability.extra.need_to_sell
