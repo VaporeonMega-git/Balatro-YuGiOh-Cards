@@ -75,7 +75,7 @@ Draw 2 cards
 
 Remove eternal, perishable, and rental from 1 selected joker.
 
-### Mystical Space Typhoon
+## Mystical Space Typhoon
 **Consumable**
 
 Destroy 1 selected playing card.
