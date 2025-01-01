@@ -27,6 +27,7 @@ Retrigger all played spades for each "Dark Magician" joker
 
 ## Luster Dragon
 **Uncommon**
+
 Each scoring Heart gives +50 chips
 
 ## Blue-Eyes White Dragon
