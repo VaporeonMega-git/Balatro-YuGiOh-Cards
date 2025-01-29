@@ -15,6 +15,13 @@ else
   atlas()
 end
 
+local rarities, error_loading = SMODS.load_file("Rarities.lua")
+if error_loading then
+  print("Error loading: " .. error_loading)
+else
+  rarities()
+end
+
 local consumableTypes, error_loading = SMODS.load_file("ConsumableTypes.lua")
 if error_loading then
   print("Error loading: " .. error_loading)

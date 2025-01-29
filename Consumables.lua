@@ -124,7 +124,7 @@ SMODS.Consumable {
   end,
   atlas = 'YGOSpells',
   pos = {x = 3, y = 0},
-  cost = 2,
+  cost = 12,
   can_use = function(self, card)
     if #G.hand.highlighted == 1 then
       return true
@@ -148,5 +148,131 @@ SMODS.Consumable {
     for i = 1, #G.jokers.cards do
         G.jokers.cards[i]:calculate_joker({remove_playing_cards = true, removed = destroyed_cards})
     end
+  end
+}
+
+SMODS.Consumable {
+  key = "raigeki",
+  set = "spell_rare",
+  loc_txt = {
+    name = 'Raigeki',
+    text = {
+      "Destroy all selected",
+      "playing cards"
+    }
+  },
+  loc_vars = function(self, info_queue, center)
+    return {vars = {}}
+  end,
+  atlas = 'YGOSpells',
+  pos = {x = 4, y = 0},
+  cost = 12,
+  can_use = function(self, card)
+    if #G.hand.highlighted > 0 then
+      return true
+    else
+      return false
+    end
+  end,
+  use = function(self, card, area, copier)
+    local destroyed_cards = {}
+    for i=#G.hand.highlighted, 1, -1 do
+      destroyed_cards[#destroyed_cards+1] = G.hand.highlighted[i]
+    end
+    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+      play_sound('tarot1')
+      card:juice_up(0.3, 0.5)
+      return true end }))
+    G.E_MANAGER:add_event(Event({
+      trigger = 'after',
+      delay = 0.2,
+      func = function() 
+        for i=#G.hand.highlighted, 1, -1 do
+          local card = G.hand.highlighted[i]
+          if card.ability.name == 'Glass Card' then 
+            card:shatter()
+          else
+            card:start_dissolve(nil, i == #G.hand.highlighted)
+          end
+        end
+        return true end }))
+  end
+}
+
+SMODS.Consumable {
+  key = "swords_of_revealing_light",
+  set = "spell_rare",
+  loc_txt = {
+    name = 'Swords of Revealing Light',
+    text = {
+      "{C:red}+#1#{} Discards this round"
+    }
+  },
+  loc_vars = function(self, info_queue, center)
+    return {vars = {3}}
+  end,
+  atlas = 'YGOSpells',
+  pos = {x = 0, y = 1},
+  cost = 12,
+  can_use = function(self, card)
+    if G.GAME.facing_blind ~= nil then
+      return true
+    else
+      return false
+    end
+  end,
+  use = function(self, card, area, copier)
+    G.GAME.current_round.discards_left = G.GAME.current_round.discards_left + 3;
+  end
+}
+
+SMODS.Consumable {
+  key = "change_of_heart",
+  set = "spell",
+  loc_txt = {
+    name = 'Change of Heart',
+    text = {
+      "Converts up to #1# selected",
+      "cards to their opposite suit"
+    }
+  },
+  loc_vars = function(self, info_queue, center)
+    return {vars = {2}}
+  end,
+  atlas = 'YGOSpells',
+  pos = {x = 1, y = 1},
+  cost = 3,
+  can_use = function(self, card)
+    if #G.hand.highlighted > 0 and #G.hand.highlighted < 3 then
+      return true
+    else
+      return false
+    end
+  end,
+  use = function(self, card, area, copier)
+    for i=#G.hand.highlighted, 1, -1 do
+      card = G.hand.highlighted[i]
+      if card.base.suit == "Hearts" then
+        card:flip()
+        card:change_suit('Spades')
+      elseif card.base.suit == "Spades" then
+        card:flip()
+        card:change_suit('Hearts')
+      elseif card.base.suit == "Clubs" then
+        card:flip()
+        card:change_suit('Diamonds')
+      elseif card.base.suit == "Diamonds" then
+        card:flip()
+        card:change_suit('Clubs')
+      end
+    end
+    G.E_MANAGER:add_event(Event({
+      trigger = 'after',
+      delay = 1.5,
+      func = function() 
+        for i=#G.hand.highlighted, 1, -1 do
+          G.hand.highlighted[i]:flip()
+        end
+        return true end }))
   end
 }

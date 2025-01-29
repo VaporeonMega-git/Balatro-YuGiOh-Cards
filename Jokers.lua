@@ -1,3 +1,5 @@
+require "math"
+
 local function jokers_contains(val)
   for index, value in ipairs(G.jokers.cards) do
     if value:save().label == val then
@@ -71,12 +73,13 @@ SMODS.Joker {
     name = 'Exodia the Forbidden One',
     text = {
       "If you have all other exodia",
-      "pieces, {X:mult,C:white}X10^99{} Mult"
+      -- "pieces, {X:mult,C:white}X#1#{} Mult"
+      "pieces, {C:mult}+#1#{} Mult"
     }
   },
-  config = {extra = {Xmult = 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000}},
+  config = {extra = {mult = math.huge}},
   loc_vars = function(self, info_queue, card)
-    return {vars = {card.ability.extra.Xmult}}
+    return {vars = {card.ability.extra.mult}}
   end,
   rarity = 3,
   atlas = 'YGOJokers',
@@ -86,7 +89,7 @@ SMODS.Joker {
     if context.joker_main then
       if jokers_contains("j_ygo_exodia_left_arm") and jokers_contains("j_ygo_exodia_right_arm") and jokers_contains("j_ygo_exodia_left_leg") and jokers_contains("j_ygo_exodia_right_leg") then
         return {
-          Xmult_mod = card.ability.extra.Xmult,
+          mult_mod = card.ability.extra.mult,
           -- message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.Xmult } }
           message = 'OBLITERATE'
         }
@@ -259,7 +262,7 @@ SMODS.Joker {
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.chips}}
   end,
-  rarity = 4,
+  rarity = 'ygo_ultra_rare',
   atlas = 'YGOJokers',
   pos = {x=3, y=1},
   cost = 20,
@@ -285,7 +288,7 @@ SMODS.Joker {
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.mult}}
   end,
-  rarity = 4,
+  rarity = 'ygo_ultra_rare',
   atlas = 'YGOJokers',
   pos = {x=2, y=2},
   cost = 20,
@@ -350,7 +353,7 @@ SMODS.Joker {
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.mult}}
   end,
-  rarity = 4,
+  rarity = 'ygo_egyptian_god',
   atlas = 'YGOJokers',
   pos = {x=4, y=1},
   cost = 20,
@@ -380,7 +383,7 @@ SMODS.Joker {
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.chips, card.ability.extra.mult, card.ability.extra.left_to_sell, card.ability.extra.need_to_sell}}
   end,
-  rarity = 4,
+  rarity = 'ygo_egyptian_god',
   atlas = 'YGOJokers',
   pos = {x=0, y=2},
   cost = 20,
@@ -418,7 +421,7 @@ SMODS.Joker {
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.hands, card.ability.extra.Xmult, card.ability.extra.Xmult_mod, card.ability.extra.original_Xmult}}
   end,
-  rarity = 4,
+  rarity = 'ygo_egyptian_god',
   atlas = 'YGOJokers',
   pos = {x=1, y=2},
   cost = 20,
