@@ -1,3 +1,4 @@
+-- Code from Cryptid
 SMODS.Tag {
     atlas = "YGOTags",
     loc_txt = {

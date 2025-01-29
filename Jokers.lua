@@ -229,32 +229,63 @@ SMODS.Joker {
 }
 
 SMODS.Joker {
-  key = 'luster_dragon',
+  key = "maiden_with_eyes_of_blue",
   loc_txt = {
-    name = 'Luster Dragon',
+    name = 'Maiden with Eyes of Blue',
     text = {
-      "Played cards with",
-      "{C:hearts}Heart{} suit give {C:chips}+#1#{}",
-      "chips when scored"
+      "#1# in #2# chance to self-destruct",
+      "and spawn a Blue-Eyes White Dragon",
+      "in the next shop"
     }
   },
-  config = {extra = {chips = 50}},
+  rarity = 3,
+  atlas = "YGOJokers",
+  pos = {x=4, y=2},
+  cost = 10,
+  no_pool_flag = 'maiden_with_eyes_of_blue_used',
+  config = {extra = {odds_num = 1, odds_den = 8}},
   loc_vars = function(self, info_queue, card)
-    return {vars = {card.ability.extra.chips}}
+    return { vars = {card.ability.extra.odds_num, card.ability.extra.odds_den} }
   end,
-  rarity = 2,
-  atlas = 'YGOJokers',
-  pos = {x=3, y=2},
-  cost = 7,
   calculate = function(self, card, context)
-    if context.individual and context.cardarea == G.play then
-      if context.other_card:is_suit("Hearts") then
-        return {
-          chips = card.ability.extra.chips,
-          card = card
-        }
-      end
-    end
+    if context.end_of_round and not context.repetition and context.game_over == false and not context.blueprint then
+			if pseudorandom('maiden_with_eyes_of_blue') < card.ability.extra.odds_num * G.GAME.probabilities.normal / card.ability.extra.odds_den then
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						play_sound('tarot1')
+						card.T.r = -0.2
+						card:juice_up(0.3, 0.4)
+						card.states.drag.is = true
+						card.children.center.pinch.x = true
+						G.E_MANAGER:add_event(Event({
+							trigger = 'after',
+							delay = 0.3,
+							blockable = false,
+							func = function()
+								G.jokers:remove_card(card)
+								card:remove()
+								card = nil
+								return true;
+							end
+						}))
+						return true
+					end
+				}))
+				G.GAME.pool_flags.sage_with_eyes_of_blue_used = true
+        local tag = Tag("tag_ygo_blue_eyes")
+        if not tag.ability then
+          tag.ability = {}
+        end
+        add_tag(tag)
+				return {
+					message = 'Summon!'
+				}
+			else
+				return {
+					message = 'No Summon!'
+				}
+			end
+		end
   end
 }
 
@@ -491,70 +522,31 @@ SMODS.Joker {
 -- }
 
 SMODS.Joker {
-  key = "maiden_with_eyes_of_blue",
+  key = 'luster_dragon',
   loc_txt = {
-    name = 'Maiden with Eyes of Blue',
+    name = 'Luster Dragon',
     text = {
-      "#1# in #2# chance to self-destruct",
-      "and spawn a Blue-Eyes White Dragon",
-      "in the next shop"
+      "Played cards with",
+      "{C:hearts}Heart{} suit give {C:chips}+#1#{}",
+      "chips when scored"
     }
   },
-  rarity = 3,
-  atlas = "YGOJokers",
-  pos = {x=4, y=2},
-  cost = 10,
-  no_pool_flag = 'maiden_with_eyes_of_blue_used',
-  config = {extra = {odds_num = 1, odds_den = 8}},
-  -- loc_vars = function(self, info_queue)
-  --   info_queue[#info_queue + 1] =
-  --     { set = "Tag", key = "tag_ygo_blue_eyes" }
-  --   return { vars = {card.ability.extra.odds} }
-  -- end,
+  config = {extra = {chips = 50}},
   loc_vars = function(self, info_queue, card)
-    return { vars = {card.ability.extra.odds_num, card.ability.extra.odds_den} }
+    return {vars = {card.ability.extra.chips}}
   end,
+  rarity = 2,
+  atlas = 'YGOJokers',
+  pos = {x=3, y=2},
+  cost = 7,
   calculate = function(self, card, context)
-    if context.end_of_round and not context.repetition and context.game_over == false and not context.blueprint then
-			-- Another pseudorandom thing, randomly generates a decimal between 0 and 1, so effectively a random percentage.
-			if pseudorandom('maiden_with_eyes_of_blue') < card.ability.extra.odds_num * G.GAME.probabilities.normal / card.ability.extra.odds_den then
-				-- This part plays the animation.
-				G.E_MANAGER:add_event(Event({
-					func = function()
-						play_sound('tarot1')
-						card.T.r = -0.2
-						card:juice_up(0.3, 0.4)
-						card.states.drag.is = true
-						card.children.center.pinch.x = true
-						-- This part destroys the card.
-						G.E_MANAGER:add_event(Event({
-							trigger = 'after',
-							delay = 0.3,
-							blockable = false,
-							func = function()
-								G.jokers:remove_card(card)
-								card:remove()
-								card = nil
-								return true;
-							end
-						}))
-						return true
-					end
-				}))
-				G.GAME.pool_flags.sage_with_eyes_of_blue_used = true
-        local tag = Tag("tag_ygo_blue_eyes")
-        if not tag.ability then
-          tag.ability = {}
-        end
-        add_tag(tag)
-				return {
-					message = 'Summon!'
-				}
-			else
-				return {
-					message = 'No Summon!'
-				}
-			end
-		end
+    if context.individual and context.cardarea == G.play then
+      if context.other_card:is_suit("Hearts") then
+        return {
+          chips = card.ability.extra.chips,
+          card = card
+        }
+      end
+    end
   end
 }
