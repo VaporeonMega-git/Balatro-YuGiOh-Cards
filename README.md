@@ -31,22 +31,22 @@ Retrigger all played spades for each "Dark Magician" joker
 Each scoring Heart gives +50 chips
 
 ## Blue-Eyes White Dragon
-**Legendary**
+**Ultra Rare**
 
 +300 chips
 
 ## Red-Eyes Black Dragon
-**Legendary**
+**Ultra Rare**
 
 +270 mult
 
 ## Slifer the Sky Dragon
-**Legendary**
+**Egyptian God**
 
 +50 mult for each card held in hand
 
 ## Obelisk the Tormentor
-**Legendary**
+**Egyptian God**
 
 +100 chips
 
@@ -55,10 +55,15 @@ Each scoring Heart gives +50 chips
 Every 2 cards sold spawns a "Mystical Space Typhoon" spell card
 
 ## The Winged Dragon of Ra
-**Legendary**
+**Egyptian God**
 
 Play only 1 hand
 X1 mult, +X2 for each hand lost due to Ra's effect
+
+## Maiden with Eyes of Blue
+**Rare**
+
+1 in 8 chance to self-destruct and spawn a Blue-Eyes White Dragon in the next shop.
 
 ## Graceful Charity
 **Consumable**
