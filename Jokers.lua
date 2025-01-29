@@ -74,7 +74,7 @@ SMODS.Joker {
     text = {
       "If you have all other exodia",
       -- "pieces, {X:mult,C:white}X#1#{} Mult"
-      "pieces, {C:mult}+#1#{} Mult"
+      "pieces, {C:mult}+naneinf{} Mult"
     }
   },
   config = {extra = {mult = math.huge}},
@@ -86,8 +86,16 @@ SMODS.Joker {
   pos = {x=0, y=0},
   cost = 7,
   calculate = function(self, card, context)
+    card.ability.extra.mult = math.huge
     if context.joker_main then
       if jokers_contains("j_ygo_exodia_left_arm") and jokers_contains("j_ygo_exodia_right_arm") and jokers_contains("j_ygo_exodia_left_leg") and jokers_contains("j_ygo_exodia_right_leg") then
+        orig_amt = G.GAME.round_scores['hand'].amt
+        G.E_MANAGER:add_event(Event({
+          trigger = 'after',
+          delay = 10.0,
+          func = function()
+            G.GAME.round_scores['hand'].amt = orig_amt
+            return true end }))
         return {
           mult_mod = card.ability.extra.mult,
           -- message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.Xmult } }
