@@ -8,7 +8,7 @@
 ## Exodia head
 **Rare**
 
-Does nothing unless you have all pieces, then X10^99 mult
+If you have all exodia pieces, +(NaN x 10^∞) mult
 
 ## Time wizard
 **Rare**
@@ -79,3 +79,13 @@ Remove eternal, perishable, and rental from 1 selected joker.
 **Consumable**
 
 Destroy 1 selected playing card.
+
+## Raigeki
+**Consumable**
+
+Destroy all selected playing cards.
+
+## Change of Heart
+**Consumable**
+
+Change up to 2 selected playing card's suits to their opposite (Spades <-> Hearts, Clubs <-> Diamonds).
