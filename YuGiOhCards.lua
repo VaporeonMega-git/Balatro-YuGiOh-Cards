@@ -22,6 +22,13 @@ else
   rarities()
 end
 
+local tags, error_loading = SMODS.load_file("Tags.lua")
+if error_loading then
+  print("Error loading: " .. error_loading)
+else
+  tags()
+end
+
 local consumableTypes, error_loading = SMODS.load_file("ConsumableTypes.lua")
 if error_loading then
   print("Error loading: " .. error_loading)

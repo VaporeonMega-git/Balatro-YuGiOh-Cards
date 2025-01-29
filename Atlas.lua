@@ -18,3 +18,10 @@ SMODS.Atlas {
   px = 171.84,
   py = 296.64
 }
+
+SMODS.Atlas {
+  key = "YGOTags",
+  path = "YGOTags.png",
+  px = 34,
+  py = 34
+}
