@@ -24,18 +24,18 @@ SMODS.ConsumableType {
   default = "c_ygo_spell_rare"
 }
 
--- SMODS.ConsumableType {
---   key = "trap",
---   primary_colour = HEX("a13e88"),
---   secondary_colour = HEX("930a6f"),
---   loc_txt = {
---  		name = 'Trap',
---  		collection = 'Trap Cards'
---  	},
---   collection_row = {6, 6},
---   shop_rate = 1.0,
---   default = "c_ygo_trap"
--- }
+SMODS.ConsumableType {
+  key = "trap",
+  primary_colour = HEX("a13e88"),
+  secondary_colour = HEX("930a6f"),
+  loc_txt = {
+ 		name = 'Trap',
+ 		collection = 'Trap Cards'
+ 	},
+  collection_row = {6, 6},
+  shop_rate = 1.0,
+  default = "c_ygo_trap"
+}
 
 -- SMODS.ConsumableType {
 --   key = "trap_rare",

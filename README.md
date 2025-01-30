@@ -94,3 +94,8 @@ Destroy all selected playing cards.
 **Consumable**
 
 Change up to 2 selected playing card's suits to their opposite (Spades <-> Hearts, Clubs <-> Diamonds).
+
+## Gagagashield
+**Consumable**
+
+Give 1 joker eternal until the end of the round

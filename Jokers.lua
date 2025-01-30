@@ -163,7 +163,7 @@ SMODS.Joker {
     loc_txt = {
       name = 'Dark Magician',
       text = {
-        "#1# in #2# chance for",
+        "{C:green}#1# in #2#{} chance for",
         "played cards with",
         "{C:spades}Spade{} suit to give",
         "{X:mult,C:white}X#3#{} Mult when scored"
@@ -171,7 +171,7 @@ SMODS.Joker {
     },
     config = {extra = {odds_num = 1, odds_den = 2, Xmult = 1.5}},
     loc_vars = function(self, info_queue, card)
-      return {vars = {card.ability.extra.odds_num, card.ability.extra.odds_den, card.ability.extra.Xmult}}
+      return {vars = {card.ability.extra.odds_num * (G.GAME and G.GAME.probabilities.normal or 1), card.ability.extra.odds_den, card.ability.extra.Xmult}}
     end,
     rarity = 2,
     atlas = 'YGOJokers',
@@ -195,7 +195,7 @@ SMODS.Joker {
     name = 'Dark Magician Girl',
     text = {
       'Retrigger each played {C:spades}Spade{} #1#',
-      'time for each Dark Magician joker',
+      'time for each {C:attention}Dark Magician{} joker',
     }
   },
   config = {extra = {repetitions = 1}},
@@ -233,8 +233,8 @@ SMODS.Joker {
   loc_txt = {
     name = 'Maiden with Eyes of Blue',
     text = {
-      "#1# in #2# chance to self-destruct",
-      "and spawn a Blue-Eyes White Dragon",
+      "{C:green}#1# in #2#{} chance to {C:attention}self-destruct{}",
+      "and spawn a {C:chips,T:blue_eyes_white_drageon}Blue-Eyes White Dragon{}",
       "in the next shop"
     }
   },
@@ -346,9 +346,9 @@ SMODS.Joker {
   loc_txt = {
     name = 'Time Wizard',
     text = {
-      "50/50 chance to",
+      "{C:green}50/50{} chance to",
       "give {X:mult,C:white}X#1#{} Mult or",
-      "destroy a random joker"
+      "{C:attention}destroy{} a random joker"
     }
   },
   config = {extra = {success = 10, fail = 1}},
@@ -451,7 +451,7 @@ SMODS.Joker {
   loc_txt = {
     name = 'The Winged Dragon of Ra',
     text = {
-      "Play only #1# hand",
+      "Play only {C:attention}#1#{} hand",
       "{X:mult,C:white}X#2#{} Mult, {C:mult}+{X:mult,C:white}X#3#{} for",
       "each hand lost"
     }

@@ -1,18 +1,18 @@
 SMODS.Booster {
-  name = "Spell Pack",
-  key = "spellpack_normal_1",
+  name = "Spell/Trap Pack",
+  key = "spelltrap_normal_1",
   loc_txt = {
-    name = 'Spell Pack',
+    name = 'Spell/Trap Pack',
     text = {
-      "Choose 1 of up to",
-      "3 Spell cards to",
-      "be used immediately"
+      "Choose {C:attention}1{} of up to",
+      "{C:attention}3{} {C:planet}Spell{}/{C:tarot}Trap{} cards to",
+      "be pulled or used immediately"
     }
   },
   kind = "spell",
   atlas = "YGOPacks",
-  pos = { x = 0, y = 0 },
-  config = { extra = 3, choose = 1},
+  pos = {x=0, y=0},
+  config = {extra = 3, choose = 1},
   cost = 4,
   order = 1,
   weight = 1,
@@ -21,11 +21,22 @@ SMODS.Booster {
     for k, v in ipairs(G.STATES) do
         print(v)
     end
-    r = pseudorandom('ygo_spellpack')
-    if r < 0.1 then
-        card = create_card("spell_rare", G.pack_cards, nil, nil, true, true, nil, nil)
-    else
-        card = create_card("spell", G.pack_cards, nil, nil, true, true, nil, nil)
+    r1 = pseudorandom('ygo_spellpack')
+    if r1 < 0.15 then
+        -- r2 = pseudorandom('ygo_spellpack')
+        -- if r2 < 0.1 then
+        --     card = create_card("trap_rare", G.pack_cards, nil, nil, true, true, nil, nil)
+        -- else
+            card = create_card("trap", G.pack_cards, nil, nil, true, true, nil, nil)
+        -- end
+    end
+    if r1 >= 0.15 or card.ability.name == "Joker" then
+        r2 = pseudorandom('ygo_spellpack')
+        if r2 < 0.1 then
+            card = create_card("spell_rare", G.pack_cards, nil, nil, true, true, nil, nil)
+        else
+            card = create_card("spell", G.pack_cards, nil, nil, true, true, nil, nil)
+        end
     end
     return card
   end,

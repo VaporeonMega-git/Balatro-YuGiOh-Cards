@@ -4,8 +4,8 @@ SMODS.Consumable {
   loc_txt = {
     name = 'Graceful Charity',
     text = {
-      "Discard #1# cards",
-      "and draw #2#"
+      "Discard {C:attention}#1#{} cards",
+      "and draw {C:attention}#2#{}"
     }
   },
   loc_vars = function(self, info_queue, center)
@@ -57,7 +57,7 @@ SMODS.Consumable {
   loc_txt = {
     name = 'Pot Of Greed',
     text = {
-      "Draw #1# cards"
+      "Draw {C:attention}#1#{} cards"
     }
   },
   loc_vars = function(self, info_queue, center)
@@ -86,8 +86,8 @@ SMODS.Consumable {
   loc_txt = {
     name = 'Enemy Controller',
     text = {
-      "Remove eternal, perishable,",
-      "and rental from 1 selected joker"
+      "Remove {C:attention}eternal{}, {C:attention}perishable{},",
+      "and {C:attention}rental{} from {C:attention}1{} selected joker"
     }
   },
   loc_vars = function(self, info_queue, center)
@@ -116,7 +116,7 @@ SMODS.Consumable {
   loc_txt = {
     name = 'Mystical Space Typhoon',
     text = {
-      "Destroy #1# playing card"
+      "Destroy {C:attention}#1#{} playing card"
     }
   },
   loc_vars = function(self, info_queue, center)
@@ -157,7 +157,7 @@ SMODS.Consumable {
   loc_txt = {
     name = 'Raigeki',
     text = {
-      "Destroy all selected",
+      "Destroy {C:attention}all{} selected",
       "playing cards"
     }
   },
@@ -232,7 +232,7 @@ SMODS.Consumable {
   loc_txt = {
     name = 'Change of Heart',
     text = {
-      "Converts up to #1# selected",
+      "Converts up to {C:attention}#1#{} selected",
       "cards to their opposite suit"
     }
   },
@@ -251,17 +251,17 @@ SMODS.Consumable {
   end,
   use = function(self, card, area, copier)
     for i=#G.hand.highlighted, 1, -1 do
-      card = G.hand.highlighted[i]
-      if card.base.suit == "Hearts" then
+      c = G.hand.highlighted[i]
+      if c.base.suit == "Hearts" then
         card:flip()
         card:change_suit('Spades')
-      elseif card.base.suit == "Spades" then
+      elseif c.base.suit == "Spades" then
         card:flip()
         card:change_suit('Hearts')
-      elseif card.base.suit == "Clubs" then
+      elseif c.base.suit == "Clubs" then
         card:flip()
         card:change_suit('Diamonds')
-      elseif card.base.suit == "Diamonds" then
+      elseif c.base.suit == "Diamonds" then
         card:flip()
         card:change_suit('Clubs')
       end
@@ -274,5 +274,42 @@ SMODS.Consumable {
           G.hand.highlighted[i]:flip()
         end
         return true end }))
+  end
+}
+
+SMODS.Consumable {
+  key = "gagagashield",
+  set = "trap",
+  loc_txt = {
+    name = 'Gagagashield',
+    text = {
+      "Give a joker {C:attention}eternal{}",
+      "until the end of the round"
+    }
+  },
+  loc_vars = function(self, info_queue, center)
+    return {vars = {2}}
+  end,
+  atlas = 'YGOSpells',
+  pos = {x = 2, y = 1},
+  cost = 10,
+  can_use = function(self, card)
+    if #G.jokers.highlighted == 1 and (not G.jokers.highlighted[1].ability.eternal) and G.jokers.highlighted[1].config.center.eternal_compat then
+      return true
+    else
+      return false
+    end
+  end,
+  use = function(self, card, area, copier)
+    c = G.jokers.highlighted[1]
+    c:set_eternal(true)
+    local tag = Tag("tag_ygo_gagagashield_tag")
+    if not tag.ability then
+      tag.ability = {}
+    end
+    if not tag.ability.joker then
+      tag.ability.joker = c
+    end
+    add_tag(tag)
   end
 }
