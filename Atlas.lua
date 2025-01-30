@@ -1,15 +1,15 @@
 SMODS.Atlas {
   key = "YGOJokers",
   path = "YGOJokers.png",
-  px = 50.8,
-  py = 74.0
+  px = 152.4,
+  py = 222.0
 }
 
 SMODS.Atlas {
   key = "YGOSpells",
   path = "YGOSpells.png",
-  px = 50.8,
-  py = 74.0
+  px = 154.4,
+  py = 222.0
 }
 
 SMODS.Atlas {

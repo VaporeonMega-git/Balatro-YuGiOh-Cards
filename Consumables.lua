@@ -124,7 +124,7 @@ SMODS.Consumable {
   end,
   atlas = 'YGOSpells',
   pos = {x = 3, y = 0},
-  cost = 12,
+  cost = 3,
   can_use = function(self, card)
     if #G.hand.highlighted == 1 then
       return true
@@ -166,7 +166,7 @@ SMODS.Consumable {
   end,
   atlas = 'YGOSpells',
   pos = {x = 4, y = 0},
-  cost = 12,
+  cost = 10,
   can_use = function(self, card)
     if #G.hand.highlighted > 0 then
       return true
@@ -213,7 +213,7 @@ SMODS.Consumable {
   end,
   atlas = 'YGOSpells',
   pos = {x = 0, y = 1},
-  cost = 12,
+  cost = 10,
   can_use = function(self, card)
     if G.GAME.facing_blind ~= nil then
       return true
