@@ -23,3 +23,16 @@ SMODS.Rarity {
         -- ["Joker"] = { rate = 0.005 },
     }
 }
+
+SMODS.Rarity {
+    key = 'fusion',
+    loc_txt = {
+        name = 'Fusion'
+    },
+    badge_colour = HEX('9451a1'),
+    default_weight = 0, -- 0/1
+    pools = {
+        ["Joker"] = true
+        -- ["Joker"] = { rate = 0.005 },
+    }
+}

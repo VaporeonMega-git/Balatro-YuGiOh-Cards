@@ -6,7 +6,7 @@ SMODS.ConsumableType {
  		name = 'Spell',
  		collection = 'Spell Cards'
  	},
-  collection_row = {6, 6},
+  collection_rows = {3, 3},
   shop_rate = 1.0,
   default = "c_ygo_spell"
 }
@@ -19,7 +19,7 @@ SMODS.ConsumableType {
  		name = 'Rare Spell',
  		collection = 'Rare Spell Cards'
  	},
-  collection_row = {6, 6},
+  collection_rows = {3},
   shop_rate = 0.1,
   default = "c_ygo_spell_rare"
 }
@@ -32,7 +32,7 @@ SMODS.ConsumableType {
  		name = 'Trap',
  		collection = 'Trap Cards'
  	},
-  collection_row = {6, 6},
+  collection_rows = {3},
   shop_rate = 1.0,
   default = "c_ygo_trap"
 }

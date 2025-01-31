@@ -65,6 +65,29 @@ X1 mult, +X2 for each hand lost due to Ra's effect
 
 1 in 8 chance to self-destruct and spawn a Blue-Eyes White Dragon in the next shop.
 
+## Baby Dragon
+**Common**
+
++12 Chips
+
++7 Mult
+
+## Thousand Dragon
+**Fusion**
+
++24 Chips
+
+X2 Mult
+
+(Baby Dragon, Time Wizard)
+
+## Blue-Eyes Ultimate Dragon
+**Fusion**
+
++900 Chips
+
+(Blue-Eyes White Dragon)
+
 ## Graceful Charity
 **Consumable**
 
@@ -84,6 +107,11 @@ Remove eternal, perishable, and rental from 1 selected joker.
 **Consumable**
 
 Destroy 1 selected playing card.
+
+## Polymerization
+**Consumable**
+
+Fuse 2+ compatable jokers.
 
 ## Raigeki
 **Consumable**

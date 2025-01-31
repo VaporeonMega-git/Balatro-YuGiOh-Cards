@@ -414,8 +414,8 @@ SMODS.Joker {
     text = {
       "{C:chips}+#1#{} Chips",
       "{C:mult}+#2#{} Mult",
-      "After selling #3# cards, create",
-      "a {C:planet}Mystical Space Typhoon{} card"
+      "After selling {C:attention}#3#{} cards, create",
+      "a {C:dark_edition}Negative{} {C:planet}Mystical Space Typhoon{} card"
     }
   },
   config = {extra = {chips = 100, mult = 100, left_to_sell = 2, need_to_sell = 2}},
@@ -438,8 +438,15 @@ SMODS.Joker {
       card.ability.extra.left_to_sell = card.ability.extra.left_to_sell - 1
       if card.ability.extra.left_to_sell <= 0 then
         local tarot = create_card(nil, G.consumeables, nil, nil, nil, nil, 'c_ygo_mystical_space_typhoon', nil)
-        card:add_to_deck()
+        -- card:add_to_deck()
         G.consumeables:emplace(tarot)
+        
+        if not tarot.edition then
+          tarot.edition = {}
+        end
+        tarot.edition.negative = true
+        tarot.edition.type = 'negative'
+
         card.ability.extra.left_to_sell = card.ability.extra.need_to_sell
       end
     end
@@ -547,6 +554,93 @@ SMODS.Joker {
           card = card
         }
       end
+    end
+  end
+}
+
+SMODS.Joker {
+  key = 'baby_dragon',
+  loc_txt = {
+    name = 'Baby Dragon',
+    text = {
+      "{C:chips}+#1#{} Chips",
+      "{C:mult}+#2#{} Mult"
+    }
+  },
+  config = {extra = {chips = 12, mult = 7}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.chips, card.ability.extra.mult}}
+  end,
+  rarity = 1,
+  atlas = 'YGOJokers',
+  pos = {x=0, y=3},
+  cost = 6,
+  calculate = function(self, card, context)
+    if context.joker_main then
+      return {
+        chip_mod = card.ability.extra.chips,
+        mult_mod = card.ability.extra.mult,
+        message = '+' .. card.ability.extra.chips .. ' Chips, ' ..
+                  localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } }
+      }
+    end
+  end
+}
+
+SMODS.Joker {
+  key = 'thousand_dragon',
+  loc_txt = {
+    name = 'Thousand Dragon',
+    text = {
+      "{C:chips}+#1#{} Chips",
+      "{X:mult,C:white}X#2#{} Mult",
+      "{C:inactive,s:0.8}Baby Dragon",
+      "{C:inactive,s:0.8}Time Wizard",
+    }
+  },
+  config = {extra = {chips = 24, Xmult = 2}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.chips, card.ability.extra.Xmult}}
+  end,
+  rarity = 'ygo_fusion',
+  atlas = 'YGOJokers',
+  pos = {x=1, y=3},
+  cost = 6,
+  calculate = function(self, card, context)
+    if context.joker_main then
+      return {
+        chip_mod = card.ability.extra.chips,
+        Xmult_mod = card.ability.extra.Xmult,
+        message = '+' .. card.ability.extra.chips .. ' Chips, ' ..
+                  localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.mult } }
+      }
+    end
+  end
+}
+
+SMODS.Joker {
+  key = 'blue_eyes_ultimate_dragon',
+  loc_txt = {
+    name = 'Blue-Eyes Ultimate Dragon',
+    text = {
+      "{C:chips}+#1#{} Chips",
+      "{C:inactive,s:0.8}Blue-Eyes White Dragon x3"
+    }
+  },
+  config = {extra = {chips = 900}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.chips}}
+  end,
+  rarity = 'ygo_fusion',
+  atlas = 'YGOJokers',
+  pos = {x=2, y=3},
+  cost = 40,
+  calculate = function(self, card, context)
+    if context.joker_main then
+      return {
+        chip_mod = card.ability.extra.chips,
+        message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } }
+      }
     end
   end
 }

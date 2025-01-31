@@ -313,3 +313,100 @@ SMODS.Consumable {
     add_tag(tag)
   end
 }
+
+polymerization_compat = function(jokers, fusion)
+  local compat = {}
+  local checking = fusion_reqs(fusion)
+
+  -- Check all jokers against the checking table
+  for i=#jokers, 1, -1 do
+    if checking[jokers[i].ability.name] and checking[jokers[i].ability.name] > 0 then
+      checking[jokers[i].ability.name] = checking[jokers[i].ability.name] - 1
+      compat[i] = true
+    end
+  end
+
+  -- Did everything get found?
+  for key, value in pairs(checking) do
+    if value > 0 then
+      return nil
+    end
+  end
+
+  return compat
+end
+
+fusion_reqs = function(fusion)
+  if fusion == "thousand_dragon" then
+    return {
+      j_ygo_baby_dragon = 1,
+      j_ygo_time_wizard = 1
+    }
+  elseif fusion == "blue_eyes_ultimate_dragon" then
+    return {
+      j_ygo_blue_eyes_white_dragon = 3
+    }
+  end
+end
+
+polymerization_destroy = function(materials)
+  local destroyed_cards = {}
+  for i=#G.jokers.cards, 1, -1 do
+    if materials[i] then
+      destroyed_cards[#destroyed_cards+1] = G.jokers.cards[i]
+    end
+  end
+  G.E_MANAGER:add_event(Event({
+    trigger = 'after',
+    delay = 0.2,
+    func = function() 
+      for i=#destroyed_cards, 1, -1 do
+        local card = destroyed_cards[i]
+        card:start_dissolve(nil, i == #destroyed_cards)
+      end
+      return true end }))
+end
+
+SMODS.Consumable {
+  key = "polymerization",
+  set = "spell",
+  loc_txt = {
+    name = 'Polymerization',
+    text = {
+      "{C:tarot}Fuse{} {C:attention}2+{} compatable jokers."
+    }
+  },
+  loc_vars = function(self, info_queue, center)
+    return {vars = {2}}
+  end,
+  atlas = 'YGOSpells',
+  pos = {x = 3, y = 1},
+  cost = 10,
+  can_use = function(self, card)
+    if polymerization_compat(G.jokers.cards, "thousand_dragon") then
+      return true
+    elseif polymerization_compat(G.jokers.cards, "blue_eyes_ultimate_dragon") then
+      return true
+    else
+      return false
+    end
+  end,
+  use = function(self, card, area, copier)
+    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+      play_sound('tarot1')
+      card:juice_up(0.3, 0.5)
+      return true end }))
+    if polymerization_compat(G.jokers.cards, "thousand_dragon") then
+      materials = polymerization_compat(G.jokers.cards, "thousand_dragon")
+      fusion = create_card("Joker", G.jokers, nil, nil, nil, nil, ('j_ygo_thousand_dragon'))
+    elseif polymerization_compat(G.jokers.cards, "blue_eyes_ultimate_dragon") then
+      materials = polymerization_compat(G.jokers.cards, "blue_eyes_ultimate_dragon")
+      fusion = create_card("Joker", G.jokers, nil, nil, nil, nil, ('j_ygo_blue_eyes_ultimate_dragon'))
+    else
+      print("[ygo] Couldn't fuse?")
+      return
+    end
+    polymerization_destroy(materials)
+    G.jokers:emplace(fusion)
+  end
+}

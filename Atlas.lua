@@ -8,7 +8,7 @@ SMODS.Atlas {
 SMODS.Atlas {
   key = "YGOSpells",
   path = "YGOSpells.png",
-  px = 154.4,
+  px = 152.4,
   py = 222.0
 }
 
