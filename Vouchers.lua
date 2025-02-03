@@ -28,6 +28,7 @@ SMODS.Voucher {
             "{C:green}+20%{} of the time"
         }
     },
+    required = "v_ygo_joey_voucher",
     atlas = "YGOVouchers",
     pos = {x=0, y=3},
     config = {extra = {a_odds_num = 20.0}},

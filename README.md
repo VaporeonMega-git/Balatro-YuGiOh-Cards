@@ -141,3 +141,13 @@ Change up to 2 selected playing card's suits to their opposite (Spades <-> Heart
 **Consumable**
 
 Give 1 joker eternal until the end of the round
+
+## Joey's Voucher
+**Voucher**
+
++25% chance for time wizard to succeed
+
+## Plot Armor
+**Voucher**
+
++20% chance for time wizard to succeed
