@@ -6,7 +6,7 @@
 --- DEPENDENCIES: [Steamodded>=1.0.0~ALPHA-0812d]
 --- BADGE_COLOR: c7638f
 --- PREFIX: ygo
---- VERSION: 0.5.0
+--- VERSION: 0.5.1
 
 local atlas, error_loading = SMODS.load_file("Atlas.lua")
 if error_loading then
@@ -55,4 +55,11 @@ if error_loading then
   print("Error loading: " .. error_loading)
 else
   jokers()
+end
+
+local vouchers, error_loading = SMODS.load_file("Vouchers.lua")
+if error_loading then
+  print("Error loading: " .. error_loading)
+else
+  vouchers()
 end

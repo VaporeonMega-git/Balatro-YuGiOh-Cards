@@ -253,17 +253,17 @@ SMODS.Consumable {
     for i=#G.hand.highlighted, 1, -1 do
       c = G.hand.highlighted[i]
       if c.base.suit == "Hearts" then
-        card:flip()
-        card:change_suit('Spades')
+        c:flip()
+        c:change_suit('Spades')
       elseif c.base.suit == "Spades" then
-        card:flip()
-        card:change_suit('Hearts')
+        c:flip()
+        c:change_suit('Hearts')
       elseif c.base.suit == "Clubs" then
-        card:flip()
-        card:change_suit('Diamonds')
+        c:flip()
+        c:change_suit('Diamonds')
       elseif c.base.suit == "Diamonds" then
-        card:flip()
-        card:change_suit('Clubs')
+        c:flip()
+        c:change_suit('Clubs')
       end
     end
     G.E_MANAGER:add_event(Event({
@@ -346,6 +346,11 @@ fusion_reqs = function(fusion)
     return {
       j_ygo_blue_eyes_white_dragon = 3
     }
+  elseif fusion == "black_skull_dragon" then
+    return {
+      j_ygo_summoned_skull = 1,
+      j_ygo_red_eyes_black_dragon = 1
+    }
   end
 end
 
@@ -387,6 +392,8 @@ SMODS.Consumable {
       return true
     elseif polymerization_compat(G.jokers.cards, "blue_eyes_ultimate_dragon") then
       return true
+    elseif polymerization_compat(G.jokers.cards, "black_skull_dragon") then
+      return true
     else
       return false
     end
@@ -402,6 +409,9 @@ SMODS.Consumable {
     elseif polymerization_compat(G.jokers.cards, "blue_eyes_ultimate_dragon") then
       materials = polymerization_compat(G.jokers.cards, "blue_eyes_ultimate_dragon")
       fusion = create_card("Joker", G.jokers, nil, nil, nil, nil, ('j_ygo_blue_eyes_ultimate_dragon'))
+    elseif polymerization_compat(G.jokers.cards, "black_skull_dragon") then
+      materials = polymerization_compat(G.jokers.cards, "black_skull_dragon")
+      fusion = create_card("Joker", G.jokers, nil, nil, nil, nil, ('j_ygo_black_skull_dragon'))
     else
       print("[ygo] Couldn't fuse?")
       return

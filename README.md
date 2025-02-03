@@ -86,7 +86,21 @@ X2 Mult
 
 +900 Chips
 
-(Blue-Eyes White Dragon)
+(Blue-Eyes White Dragon x3)
+
+## Summoned Skull
+**Rare**
+
++25 Chips for each spade held in hand
+
+## Black Skull Dragon
+**Fusion**
+
++32 Chips for each spade held in hand
+
++270 Mult
+
+(Summoned Skull, Red-Eyes Black Dragon)
 
 ## Graceful Charity
 **Consumable**

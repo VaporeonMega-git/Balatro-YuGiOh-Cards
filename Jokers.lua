@@ -341,6 +341,18 @@ SMODS.Joker {
   end
 }
 
+time_wizard_non_eternals = function()
+  local nons = {}
+  local j = 1
+  for i=#G.jokers.cards, 1, -1 do
+    if not G.jokers.cards[i].ability.eternal then
+      nons[j] = G.jokers.cards[i]
+      j = j + 1
+    end
+  end
+  return nons
+end
+
 SMODS.Joker {
   key = 'time_wizard',
   loc_txt = {
@@ -361,15 +373,21 @@ SMODS.Joker {
   cost = 7,
   calculate = function(self, card, context)
     if context.joker_main then
-      if pseudorandom('time_wizard') < 1.0 / 2.0 then
+      if not G.GAME.probabilities.time_wizard then
+        G.GAME.probabilities.time_wizard = 0.0 -- addative
+      end
+      if pseudorandom('time_wizard') < (50.0 + G.GAME.probabilities.time_wizard) / 100.0 then
         return {
           Xmult_mod = card.ability.extra.success,
           message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.success } }
         }
       else
-        local joker_to_destroy = math.floor(pseudorandom('time_wizard') * tablelength(G.jokers.cards) + 1)
-        G.jokers.cards[joker_to_destroy]:explode()
-        -- G.jokers.remove_card(G.jokers.cards[joker_to_destroy])
+        non_eternals = time_wizard_non_eternals()
+        if #non_eternals > 0 then
+          local joker_to_destroy = math.floor(pseudorandom('time_wizard') * tablelength(non_eternals) + 1)
+          non_eternals[joker_to_destroy]:explode()
+          -- G.jokers.remove_card(non_eternals[joker_to_destroy])
+        end
         return {
           Xmult_mod = card.ability.extra.fail,
           message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.fail } }
@@ -605,7 +623,7 @@ SMODS.Joker {
   rarity = 'ygo_fusion',
   atlas = 'YGOJokers',
   pos = {x=1, y=3},
-  cost = 6,
+  cost = 20,
   calculate = function(self, card, context)
     if context.joker_main then
       return {
@@ -640,6 +658,72 @@ SMODS.Joker {
       return {
         chip_mod = card.ability.extra.chips,
         message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } }
+      }
+    end
+  end
+}
+
+SMODS.Joker {
+  key = 'summoned_skull',
+  loc_txt = {
+    name = 'Summoned Skull',
+    text = {
+      "{C:chips}+#1#{} Chips for each",
+      "{C:spades}Spade{} held in hand"
+    }
+  },
+  config = {extra = {h_chips = 25}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.h_chips}}
+  end,
+  rarity = 3,
+  atlas = 'YGOJokers',
+  pos = {x=3, y=3},
+  cost = 8,
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.hand then
+      if context.other_card:is_suit("Spades") then
+        return {
+          h_chips = card.ability.extra.h_chips,
+          card = context.other_card
+        }
+      end
+    end
+  end
+}
+
+SMODS.Joker {
+  key = 'black_skull_dragon',
+  loc_txt = {
+    name = 'Black Skull Dragon',
+    text = {
+      "{C:chips}+#1#{} Chips for each",
+      "{C:spades}Spade{} held in hand",
+      "{C:mult}+#2#{} Mult",
+      "{C:inactive,s:0.8}Summoned Skull",
+      "{C:inactive,s:0.8}Red-Eyes Black Dragon"
+    }
+  },
+  config = {extra = {h_chips = 32, mult = 270}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.h_chips, card.ability.extra.mult}}
+  end,
+  rarity = 'ygo_fusion',
+  atlas = 'YGOJokers',
+  pos = {x=4, y=3},
+  cost = 40,
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.hand then
+      if context.other_card:is_suit("Spades") then
+        return {
+          h_chips = card.ability.extra.h_chips,
+          card = context.other_card
+        }
+      end
+    elseif context.joker_main then
+      return {
+        mult_mod = card.ability.extra.mult,
+        message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } }
       }
     end
   end
