@@ -728,3 +728,130 @@ SMODS.Joker {
     end
   end
 }
+
+is_card_and_not_debuffed = function(card, id)
+  if card:get_id() == id and not card.debuff then
+    return true
+  end
+  return
+end
+
+SMODS.Joker {
+  key = 'kings_knight',
+  loc_txt = {
+    name = 'King\'s Knight',
+    text = {
+      "Retrigger each played",
+      "{C:attention}King{} for each {C:attention}Queen{}",
+      "or {C:attention}Jack{} held in hand"
+    }
+  },
+  config = {extra = {}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {}}
+  end,
+  rarity = 1,
+  atlas = 'YGOJokers2',
+  pos = {x=0, y=0},
+  cost = 6,
+  calculate = function(self, card, context)
+    if context.repetition and context.cardarea == G.play then
+      if not is_card_and_not_debuffed(context.other_card, 13) then
+        return
+      end
+
+      local reps = 0
+      for i=#G.hand.cards, 1, -1 do
+        if is_card_and_not_debuffed(G.hand.cards[i], 11) or is_card_and_not_debuffed(G.hand.cards[i], 12) then
+          reps = reps + 1
+        end
+      end
+
+      return {
+        card = context.other_card,
+        repetitions = reps,
+        message = localize('k_again_ex')
+      }
+    end
+  end
+}
+
+SMODS.Joker {
+  key = 'queens_knight',
+  loc_txt = {
+    name = 'Queen\'s Knight',
+    text = {
+      "Retrigger each played",
+      "{C:attention}Queen{} for each {C:attention}King{}",
+      "or {C:attention}Jack{} held in hand"
+    }
+  },
+  config = {extra = {}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {}}
+  end,
+  rarity = 1,
+  atlas = 'YGOJokers2',
+  pos = {x=1, y=0},
+  cost = 6,
+  calculate = function(self, card, context)
+    if context.repetition and context.cardarea == G.play then
+      if not is_card_and_not_debuffed(context.other_card, 12) then
+        return
+      end
+
+      local reps = 0
+      for i=#G.hand.cards, 1, -1 do
+        if is_card_and_not_debuffed(G.hand.cards[i], 11) or is_card_and_not_debuffed(G.hand.cards[i], 13) then
+          reps = reps + 1
+        end
+      end
+
+      return {
+        card = context.other_card,
+        repetitions = reps,
+        message = localize('k_again_ex')
+      }
+    end
+  end
+}
+
+SMODS.Joker {
+  key = 'jacks_knight',
+  loc_txt = {
+    name = 'Jack\'s Knight',
+    text = {
+      "Retrigger each played",
+      "{C:attention}Jack{} for each {C:attention}King{}",
+      "or {C:attention}Queen{} held in hand"
+    }
+  },
+  config = {extra = {}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {}}
+  end,
+  rarity = 1,
+  atlas = 'YGOJokers2',
+  pos = {x=2, y=0},
+  cost = 6,
+  calculate = function(self, card, context)
+    if context.repetition and context.cardarea == G.play then
+      if not is_card_and_not_debuffed(context.other_card, 11) then
+        return
+      end
+
+      local reps = 0
+      for i=#G.hand.cards, 1, -1 do
+        if is_card_and_not_debuffed(G.hand.cards[i], 12) or is_card_and_not_debuffed(G.hand.cards[i], 13) then
+          reps = reps + 1
+        end
+      end
+
+      return {
+        card = context.other_card,
+        repetitions = reps,
+        message = localize('k_again_ex')
+      }
+    end
+  end
+}

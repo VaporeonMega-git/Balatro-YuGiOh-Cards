@@ -102,6 +102,21 @@ X2 Mult
 
 (Summoned Skull, Red-Eyes Black Dragon)
 
+## King's Knight
+**Common**
+
+Retrigger each played King for each Queen or Jack held in hand.
+
+## Queen's Knight
+**Common**
+
+Retrigger each played Queen for each King or Jack held in hand.
+
+## Jack's Knight
+**Common**
+
+Retrigger each played Jack for each King or Queen held in hand.
+
 ## Graceful Charity
 **Consumable**
 
