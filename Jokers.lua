@@ -855,3 +855,54 @@ SMODS.Joker {
     end
   end
 }
+
+SMODS.Joker {
+  key = 'witch_of_the_black_forest',
+  loc_txt = {
+    name = 'Witch of the Black Forest',
+    text = {
+      "Create a {C:planet}Spell{} or {C:tarot}Trap{}",
+      "card when {C:attention}Blind{} is selected",
+      "{C:inactive}(Must have room)"
+    }
+  },
+  config = {extra = {chips = 900}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.chips}}
+  end,
+  rarity = 2,
+  atlas = 'YGOJokers2',
+  pos = {x=3, y=0},
+  cost = 8,
+  calculate = function(self, card, context)
+    if context.setting_blind then
+      if G.consumeables.config.card_limit > #G.consumeables.cards then
+        r1 = pseudorandom('ygo_witch_of_the_black_forest')
+        if r1 < 0.15 then
+            -- r2 = pseudorandom('ygo_spellpack')
+            -- if r2 < 0.1 then
+            --     c = create_card("trap_rare", G.pack_cards, nil, nil, true, true, nil, nil)
+            -- else
+                c = create_card("trap", G.consumeables, nil, nil, true, true, nil, nil)
+            -- end
+        end
+        if r1 >= 0.15 or c.ability.name == "Joker" then
+          c:remove()
+          r2 = pseudorandom('ygo_witch_of_the_black_forest')
+          if r2 < 0.1 then
+              c = create_card("spell_rare", G.consumeables, nil, nil, true, true, nil, nil)
+          else
+              c = create_card("spell", G.consumeables, nil, nil, true, true, nil, nil)
+          end
+        end
+        
+        if c.ability.name == "Joker" then
+          c:remove()
+        else
+          G.consumeables:emplace(c)
+          card_eval_status_text(card, 'extra', nil, nil, nil, {message = "Search!", colour = G.C.BLUE})
+        end
+      end
+    end
+  end
+}

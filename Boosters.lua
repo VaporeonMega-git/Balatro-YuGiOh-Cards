@@ -18,9 +18,6 @@ SMODS.Booster {
   weight = 1,
   draw_hand = true,
   create_card = function(self, card)
-    for k, v in ipairs(G.STATES) do
-        print(v)
-    end
     r1 = pseudorandom('ygo_spellpack')
     if r1 < 0.15 then
         -- r2 = pseudorandom('ygo_spellpack')

@@ -292,7 +292,7 @@ SMODS.Consumable {
   end,
   atlas = 'YGOSpells',
   pos = {x = 2, y = 1},
-  cost = 10,
+  cost = 3,
   can_use = function(self, card)
     if #G.jokers.highlighted == 1 and (not G.jokers.highlighted[1].ability.eternal) and G.jokers.highlighted[1].config.center.eternal_compat then
       return true

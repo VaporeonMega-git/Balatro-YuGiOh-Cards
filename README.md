@@ -117,6 +117,11 @@ Retrigger each played Queen for each King or Jack held in hand.
 
 Retrigger each played Jack for each King or Queen held in hand.
 
+## Witch of the Black Forest
+**Uncommon**
+
+Create a Spell or Trap card when Blind is selected (must have room).
+
 ## Graceful Charity
 **Consumable**
 
