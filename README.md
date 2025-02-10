@@ -8,7 +8,7 @@
 ## Exodia head
 **Rare**
 
-If you have all exodia pieces, +(NaN x 10^∞) mult
+If you have all exodia pieces, +5e99 mult
 
 ## Time wizard
 **Rare**

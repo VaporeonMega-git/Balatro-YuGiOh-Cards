@@ -73,11 +73,11 @@ SMODS.Joker {
     name = 'Exodia the Forbidden One',
     text = {
       "If you have all other exodia",
-      -- "pieces, {X:mult,C:white}X#1#{} Mult"
-      "pieces, {C:mult}+naneinf{} Mult"
+      "pieces, {C:mult}+#1#{} Mult"
+      -- "pieces, {C:mult}+naneinf{} Mult"
     }
   },
-  config = {extra = {mult = math.huge}},
+  config = {extra = {mult = 5 * (10 ^ 99)}},
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.mult}}
   end,
@@ -86,7 +86,7 @@ SMODS.Joker {
   pos = {x=0, y=0},
   cost = 7,
   calculate = function(self, card, context)
-    card.ability.extra.mult = math.huge
+    -- card.ability.extra.mult = math.huge
     if context.joker_main then
       if jokers_contains("j_ygo_exodia_left_arm") and jokers_contains("j_ygo_exodia_right_arm") and jokers_contains("j_ygo_exodia_left_leg") and jokers_contains("j_ygo_exodia_right_leg") then
         orig_amt = G.GAME.round_scores['hand'].amt
@@ -884,10 +884,15 @@ SMODS.Joker {
             --     c = create_card("trap_rare", G.pack_cards, nil, nil, true, true, nil, nil)
             -- else
                 c = create_card("trap", G.consumeables, nil, nil, true, true, nil, nil)
+                print(c.ability.name)
             -- end
+            if c.ability.name == "Joker" then
+              print("removed")
+              c:remove()
+              r1 = 0.20
+            end
         end
-        if r1 >= 0.15 or c.ability.name == "Joker" then
-          c:remove()
+        if r1 >= 0.15 then
           r2 = pseudorandom('ygo_witch_of_the_black_forest')
           if r2 < 0.1 then
               c = create_card("spell_rare", G.consumeables, nil, nil, true, true, nil, nil)
